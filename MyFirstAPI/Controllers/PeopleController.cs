@@ -59,7 +59,7 @@ namespace MyFirstAPI.Controllers
 
         // PUT api/people/5
         [HttpPut("{id}")]
-        public IActionResult<string> Put(int id, [FromBody] Person newPerson)
+        public ActionResult<string> Put(int id, [FromBody] Person newPerson)
         {
             var person = _people.FirstOrDefault(p => p.Id == id);
             if (person == null)
