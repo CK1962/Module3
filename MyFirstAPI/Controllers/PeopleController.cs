@@ -29,7 +29,7 @@ namespace MyFirstAPI.Controllers
             }
         };
  
-        // GET api/values
+        // GET api/people
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get() 
         {
@@ -57,17 +57,28 @@ namespace MyFirstAPI.Controllers
             return CreatedAtAction("Get", newPerson, new { id = new Random().Next() });
         }
 
-        // PUT api/values/5
+        // PUT api/people/5
         [HttpPut("{id}")]
-        public ActionResult<string> Put(int id, [FromBody] string value)
+        public ActionResult<string> Put(int id, [FromBody] Person newPerson)
         {
-            return "SUCCESS";
+            var person = _people.FirstOrDefault(p => p.Id == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                person.Name = newPerson.Name;
+                person.HairColor = newPerson.HairColor;
+                return Ok(person);
+            }
         }
 
-        // DELETE api/values/5
+        // DELETE api/people/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
